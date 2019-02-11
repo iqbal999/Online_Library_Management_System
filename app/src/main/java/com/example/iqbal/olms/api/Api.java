@@ -1,7 +1,10 @@
 package com.example.iqbal.olms.api;
 
 import com.example.iqbal.olms.model.DefaultResponse;
+import com.example.iqbal.olms.model.SearchBooksResponse;
 import com.example.iqbal.olms.model.StudentLoginResponse;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -25,4 +28,9 @@ public interface Api {
             @Field("password") String password
     );
 
+    @FormUrlEncoded
+    @POST("searchBook.php")
+    Call<List<SearchBooksResponse>> searchBookByName(
+            @Field("book_name") String book_name
+    );
 }

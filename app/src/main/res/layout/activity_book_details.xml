@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,54 +7,66 @@
     tools:context=".activities.BookDetails">
 
     <LinearLayout
-        android:layout_marginTop="15dp"
-        android:layout_below="@id/searchLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/searchLayout"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="20dp"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/tv_book_name"
-            android:layout_margin="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Book Name: "/>
+            android:layout_margin="5dp"
+            android:text="Book Name: "
+            android:textColor="#000"
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/tv_author_name"
-            android:layout_margin="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Author Name: "/>
+            android:layout_margin="5dp"
+            android:text="Author Name: "
+            android:textColor="#000"
+            android:textSize="15sp" />
 
         <TextView
             android:id="@+id/tv_aval_copies"
-            android:layout_margin="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Available Copies: "/>
+            android:layout_margin="5dp"
+            android:text="Available Copies: "
+            android:textColor="#000"
+            android:textSize="15sp" />
 
         <TextView
             android:id="@+id/tv_shelf_no"
-            android:layout_margin="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Shelf No: "/>
+            android:layout_margin="5dp"
+            android:text="Shelf No: "
+            android:textColor="#000"
+            android:textSize="15sp" />
 
         <TextView
             android:id="@+id/tv_book_position"
-            android:layout_margin="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Book Position: "/>
+            android:layout_margin="5dp"
+            android:text="Book Position: "
+            android:textColor="#000"
+            android:textSize="15sp" />
 
-        <TextView
-            android:id="@+id/tv_pdf"
-            android:layout_margin="5dp"
-            android:layout_width="match_parent"
+
+        <Button
+            android:id="@+id/pdf_download"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="PDF: "/>
+            android:text="Download PDF"
+            android:layout_gravity="center"/>
 
     </LinearLayout>
 
-</android.support.constraint.ConstraintLayout>
+</RelativeLayout>
