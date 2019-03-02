@@ -130,6 +130,7 @@ public class SearchBook extends AppCompatActivity implements View.OnClickListene
 
                             String.valueOf(searchBooks.getId()),
                             searchBooks.getBook_name(),
+                            searchBooks.getEdition(),
                             searchBooks.getAuthor_name(),
                             String.valueOf(searchBooks.getAvailable_copies()),
                             searchBooks.getShelf(),
@@ -151,11 +152,12 @@ public class SearchBook extends AppCompatActivity implements View.OnClickListene
             Intent intent = new Intent(SearchBook.this, BookDetails.class);
             intent.putExtra("id", data[0]);
             intent.putExtra("book", data[1]);
-            intent.putExtra("author", data[2]);
-            intent.putExtra("ava_cop", data[3]);
-            intent.putExtra("shelf", data[4]);
-            intent.putExtra("pos", data[5]);
-            intent.putExtra("pdf", data[6]);
+            intent.putExtra("edition", data[2]);
+            intent.putExtra("author", data[3]);
+            intent.putExtra("ava_cop", data[4]);
+            intent.putExtra("shelf", data[5]);
+            intent.putExtra("pos", data[6]);
+            intent.putExtra("pdf", data[7]);
 
             startActivity(intent);
         }

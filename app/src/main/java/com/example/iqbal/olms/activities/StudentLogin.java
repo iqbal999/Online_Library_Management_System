@@ -3,6 +3,7 @@ package com.example.iqbal.olms.activities;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -20,11 +21,14 @@ import retrofit2.Response;
 public class StudentLogin extends AppCompatActivity implements View.OnClickListener{
 
     EditText editText_id, editText_password;
+    String id, book_name, book_edition, author_name, avail_copies, shelf, pos, pdf, flag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_login);
+
+
 
         editText_id = findViewById(R.id.edit_text_id);
         editText_password = findViewById(R.id.edit_text_password);
@@ -32,6 +36,16 @@ public class StudentLogin extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.button_login).setOnClickListener(this);
         findViewById(R.id.textViewRegister).setOnClickListener(this);
 
+        Intent i = this.getIntent();
+        id = i.getStringExtra("id");
+        book_name = i.getStringExtra("book");
+        book_edition = i.getStringExtra("edition");
+        author_name = i.getStringExtra("author");
+        avail_copies = i.getStringExtra("ava_cop");
+        shelf = i.getStringExtra("shelf");
+        pos = i.getStringExtra("pos");
+        pdf = i.getStringExtra("pdf");
+        flag = i.getStringExtra("flag");
 
 
     }
@@ -63,6 +77,7 @@ public class StudentLogin extends AppCompatActivity implements View.OnClickListe
 
     private void stuLogin() {
         String stu_id = editText_id.getText().toString().trim();
+        Log.d("AAA",""+stu_id);
         String password = editText_password.getText().toString().trim();
 
         if (stu_id.isEmpty()) {
@@ -102,9 +117,26 @@ public class StudentLogin extends AppCompatActivity implements View.OnClickListe
 
                     SharedPrefManager.getInstance(StudentLogin.this)
                             .saveUser(studentLoginResponse.getUser());
-                    Intent intent = new Intent(StudentLogin.this,StudentProfile.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    startActivity(intent);
+                    if(flag.equals("ib")){
+                        String[] all_info_of_books =  {
+                                id,
+                                book_name,
+                                book_edition,
+                                author_name,
+                                avail_copies,
+                                shelf,
+                                pos,
+                                pdf,
+                        };
+
+                        openDetailsActivity(all_info_of_books);
+
+                    }else{
+                        Intent intent = new Intent(StudentLogin.this,StudentProfile.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
+                    }
+
                 }else{
                     Toast.makeText(StudentLogin.this, studentLoginResponse.getMessage(), Toast.LENGTH_SHORT).show();
                 }
@@ -115,5 +147,19 @@ public class StudentLogin extends AppCompatActivity implements View.OnClickListe
 
             }
         });
+    }
+
+    private void openDetailsActivity(String[] data) {
+        Intent intent = new Intent(this, BookDetails.class);
+        intent.putExtra("id", data[0]);
+        intent.putExtra("book", data[1]);
+        intent.putExtra("edition", data[2]);
+        intent.putExtra("author", data[3]);
+        intent.putExtra("ava_cop", data[4]);
+        intent.putExtra("shelf", data[5]);
+        intent.putExtra("pos", data[6]);
+        intent.putExtra("pdf", data[7]);
+
+        startActivity(intent);
     }
 }

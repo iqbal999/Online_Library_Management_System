@@ -10,6 +10,9 @@ public class SearchBooksResponse {
     @SerializedName("b_name")
     private String book_name;
 
+    @SerializedName("b_edition")
+    private String edition;
+
     @SerializedName("a_name")
     private String author_name;
 
@@ -22,9 +25,10 @@ public class SearchBooksResponse {
 
     private String pdf_file_name;
 
-    public SearchBooksResponse(int id, String book_name, String author_name, int available_copies, String shelf, String position, String pdf_file_name) {
+    public SearchBooksResponse(int id, String book_name, String edition, String author_name, int available_copies, String shelf, String position, String pdf_file_name) {
         this.id = id;
         this.book_name = book_name;
+        this.edition = edition;
         this.author_name = author_name;
         this.available_copies = available_copies;
         this.shelf = shelf;
@@ -58,5 +62,9 @@ public class SearchBooksResponse {
 
     public String getPdf_file_name() {
         return pdf_file_name;
+    }
+
+    public String getEdition() {
+        return edition;
     }
 }
