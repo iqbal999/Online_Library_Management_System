@@ -1,4 +1,4 @@
-package com.example.iqbal.olms.activities;
+package com.example.simu.olms.activities;
 
 import android.content.Context;
 import android.content.Intent;
@@ -14,9 +14,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.iqbal.olms.R;
-import com.example.iqbal.olms.api.RetrofitClient;
-import com.example.iqbal.olms.model.SearchBooksResponse;
+import com.example.simu.olms.R;
+import com.example.simu.olms.api.RetrofitClient;
+import com.example.simu.olms.model.SearchBooksResponse;
 
 import java.util.List;
 
@@ -110,18 +110,20 @@ public class SearchBook extends AppCompatActivity implements View.OnClickListene
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            TextView tv_book_title, tv_author_name;
+            TextView tv_book_title, tv_author_name, tv_book_edition;
             if(convertView == null){
                 convertView = LayoutInflater.from(context).inflate(R.layout.list_view_item,null);
             }
 
             tv_book_title = convertView.findViewById(R.id.tv_book_title);
             tv_author_name = convertView.findViewById(R.id.tv_author_name);
+            tv_book_edition = convertView.findViewById(R.id.tv_book_edition);
 
             final SearchBooksResponse searchBooks = searchBooksResponses.get(position);
 
             tv_book_title.setText(searchBooks.getBook_name());
             tv_author_name.setText(searchBooks.getAuthor_name());
+            tv_book_edition.setText(searchBooks.getEdition());
 
             convertView.setOnClickListener(new View.OnClickListener() {
                 @Override

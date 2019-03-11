@@ -1,4 +1,4 @@
-package com.example.iqbal.olms.activities;
+package com.example.simu.olms.activities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -7,10 +7,10 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.iqbal.olms.R;
-import com.example.iqbal.olms.api.RetrofitClient;
-import com.example.iqbal.olms.model.DefaultResponse;
-import com.example.iqbal.olms.storage.SharedPrefManager;
+import com.example.simu.olms.R;
+import com.example.simu.olms.api.RetrofitClient;
+import com.example.simu.olms.model.DefaultResponse;
+import com.example.simu.olms.storage.SharedPrefManager;
 
 import retrofit2.Call;
 import retrofit2.Callback;

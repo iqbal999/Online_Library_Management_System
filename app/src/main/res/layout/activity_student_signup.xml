@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimaryBackground"
-    tools:context=".activities.StudentSignup">
+    android:background="#e5451b09"
+    tools:context="com.example.simu.olms.activities.StudentSignup">
 
 
     <TextView
@@ -15,6 +15,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="10dp"
         android:text="Sign Up"
+        android:textColor="#fff"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline" />
 
     <LinearLayout
@@ -24,6 +25,7 @@
         android:layout_centerInParent="true"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
+        android:background="@color/colorFormBackground"
         android:orientation="vertical"
         android:padding="8dp">
 
@@ -76,5 +78,6 @@
         android:lineSpacingExtra="7dp"
         android:text="Already have an Account?\nClick to Login"
         android:textAlignment="center"
+        android:textColor="#ffbb00"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
 </RelativeLayout>

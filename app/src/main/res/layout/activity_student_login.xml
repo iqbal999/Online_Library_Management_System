@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.StudentLogin"
-    android:background="@color/colorPrimaryBackground">
+    tools:context="com.example.simu.olms.activities.StudentLogin"
+    android:background="#e5451b09">
 
 
     <TextView
@@ -15,6 +15,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="10dp"
         android:text="Login"
+        android:textColor="#fff"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline" />
 
     <LinearLayout
@@ -70,6 +71,6 @@
         android:text="Don't have an Account?\nClick to Register"
         android:textAlignment="center"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-        android:textColor="@color/colorFormBackground" />
+        android:textColor="#ffbb00" />
 
 </RelativeLayout>

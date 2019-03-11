@@ -1,4 +1,4 @@
-package com.example.iqbal.olms;
+package com.example.simu.olms;
 
 import org.junit.Test;
 

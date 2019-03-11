@@ -1,4 +1,4 @@
-package com.example.iqbal.olms.model;
+package com.example.simu.olms.model;
 
 import com.google.gson.annotations.SerializedName;
 

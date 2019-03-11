@@ -4,12 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.BookDetails">
+    android:background="#e5451b09"
+    tools:context="com.example.simu.olms.activities.BookDetails">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/searchLayout"
         android:layout_centerInParent="true"
         android:layout_marginLeft="20dp"
         android:orientation="vertical">

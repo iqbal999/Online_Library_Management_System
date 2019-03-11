@@ -1,4 +1,4 @@
-package com.example.iqbal.olms.api;
+package com.example.simu.olms.api;
 
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
@@ -6,7 +6,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ServiceGenerator {
 
-    public static final String API_BASE_URL = "http://192.168.1.6/library/upload/";
+    public static final String API_BASE_URL = "http://192.168.1.2/library/upload/";
 
     private static OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
 

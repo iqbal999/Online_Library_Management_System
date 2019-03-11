@@ -1,4 +1,4 @@
-package com.example.iqbal.olms.activities;
+package com.example.simu.olms.activities;
 
 import android.Manifest;
 import android.app.DownloadManager;
@@ -18,13 +18,13 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.iqbal.olms.R;
-import com.example.iqbal.olms.api.DownloadFileService;
-import com.example.iqbal.olms.api.RetrofitClient;
-import com.example.iqbal.olms.api.ServiceGenerator;
-import com.example.iqbal.olms.model.DefaultResponse;
-import com.example.iqbal.olms.model.StudentInfo;
-import com.example.iqbal.olms.storage.SharedPrefManager;
+import com.example.simu.olms.R;
+import com.example.simu.olms.api.DownloadFileService;
+import com.example.simu.olms.api.RetrofitClient;
+import com.example.simu.olms.api.ServiceGenerator;
+import com.example.simu.olms.model.DefaultResponse;
+import com.example.simu.olms.model.StudentInfo;
+import com.example.simu.olms.storage.SharedPrefManager;
 
 
 import java.io.File;
@@ -46,9 +46,7 @@ public class BookDetails extends AppCompatActivity {
 
     TextView tv_book_name, tv_author_name, tv_book_edition, tv_avail_copies, tv_shelf, tv_position;
     Button pdf_download, issue_book;
-    String base_url = "http://192.168.1.6/library/upload/";
-    DownloadManager downloadManager;
-    public long downloadId;
+    String base_url = "http://192.168.1.2/library/upload/";
     StudentInfo stu_info;
     String id, book_name, book_edition, author_name, avail_copies, shelf, pos, pdf, full_url;
 
@@ -59,7 +57,6 @@ public class BookDetails extends AppCompatActivity {
         setContentView(R.layout.activity_book_details);
 
         stu_info = SharedPrefManager.getInstance(this).getStudentInfo();
-
 
         tv_book_name = findViewById(R.id.tv_book_name);
         tv_author_name = findViewById(R.id.tv_author_name);
@@ -92,6 +89,7 @@ public class BookDetails extends AppCompatActivity {
         tv_book_name.setText("Book Name: "+book_name);
         tv_book_edition.setText("Edition: "+book_edition);
         tv_author_name.setText("Author Name: "+author_name);
+        
         tv_avail_copies.setText("Available copies: "+avail_copies);
         tv_shelf.setText("Shelf No: "+shelf);
         tv_position.setText("Book Positon: "+pos);
@@ -100,7 +98,7 @@ public class BookDetails extends AppCompatActivity {
 
 
         full_url = base_url + pdf;
-        Log.d("AAA",""+full_url);
+        //Log.d("AAA",""+full_url);
 
         pdf_download.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,8 +113,6 @@ public class BookDetails extends AppCompatActivity {
         });
 
         issue_book.setOnClickListener(new View.OnClickListener() {
-
-
             @Override
             public void onClick(View v) {
                 Log.d("AAA",""+stu_info.getId()+ "\t"+Integer.parseInt(id));
@@ -130,6 +126,8 @@ public class BookDetails extends AppCompatActivity {
                         @Override
                         public void onResponse(Call<DefaultResponse> call, Response<DefaultResponse> response) {
                             DefaultResponse dr = response.body();
+                            //Log.d("AAA",""+response);
+                            //Log.d("AAB",""+response.body());
                             Toast.makeText(BookDetails.this, dr.getMsg(), Toast.LENGTH_SHORT).show();
                         }
 
@@ -196,12 +194,9 @@ public class BookDetails extends AppCompatActivity {
         switch (requestCode) {
             case PERMISSION_REQUEST_CODE:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
                     downloadFile(full_url);
-                    //displayNotification();
-                } else {
 
-                    //Snackbar.make(findViewById(R.id.coordinatorLayout),"Permission Denied, Please allow to proceed !", Snackbar.LENGTH_LONG).show();
+                } else {
 
                 }
                 break;
@@ -215,11 +210,9 @@ public class BookDetails extends AppCompatActivity {
         builder.setContentText(pdfTitle);
         builder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
 
-
         NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(this);
         notificationManagerCompat.notify(NOTIFICATION_ID, builder.build());
     }
-
 
     private void downloadFile(String url){
 
@@ -232,19 +225,16 @@ public class BookDetails extends AppCompatActivity {
             public void onResponse(Call<ResponseBody> call, final Response<ResponseBody> response) {
                 if (response.isSuccessful()) {
                     //Log.d(TAG, "server contacted and has file");
-
                     new AsyncTask<Void, Void, Void>() {
                         @Override
                         protected Void doInBackground(Void... voids) {
                             boolean writtenToDisk = writeResponseBodyToDisk(response.body());
-                            //Toast.makeText(BookDetails.this, "Download Successfull", Toast.LENGTH_SHORT).show();
-                            //Log.d("AAA", "file download was a success? " + writtenToDisk);
                             return null;
                         }
                     }.execute();
 
                     displayNotification(pdf);
-                    Toast.makeText(BookDetails.this, "yes", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(BookDetails.this, "Download Successful", Toast.LENGTH_SHORT).show();
                 }
                 else {
                     //Log.d(TAG, "server contact failed");
@@ -256,9 +246,6 @@ public class BookDetails extends AppCompatActivity {
                 //Log.e(TAG, "error");
             }
         });
-
-
-
     }
 
     private boolean writeResponseBodyToDisk(ResponseBody body) {
@@ -311,8 +298,6 @@ public class BookDetails extends AppCompatActivity {
             return false;
         }
     }
-
-
 }
 
 

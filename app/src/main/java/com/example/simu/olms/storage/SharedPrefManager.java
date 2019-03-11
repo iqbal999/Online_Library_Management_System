@@ -1,9 +1,9 @@
-package com.example.iqbal.olms.storage;
+package com.example.simu.olms.storage;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.example.iqbal.olms.model.StudentInfo;
+import com.example.simu.olms.model.StudentInfo;
 
 public class SharedPrefManager {
 

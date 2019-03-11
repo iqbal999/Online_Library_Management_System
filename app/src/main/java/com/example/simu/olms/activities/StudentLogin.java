@@ -1,4 +1,4 @@
-package com.example.iqbal.olms.activities;
+package com.example.simu.olms.activities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -8,11 +8,11 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.iqbal.olms.R;
-import com.example.iqbal.olms.api.RetrofitClient;
-import com.example.iqbal.olms.model.DefaultResponse;
-import com.example.iqbal.olms.model.StudentLoginResponse;
-import com.example.iqbal.olms.storage.SharedPrefManager;
+import com.example.simu.olms.R;
+import com.example.simu.olms.api.RetrofitClient;
+import com.example.simu.olms.model.DefaultResponse;
+import com.example.simu.olms.model.StudentLoginResponse;
+import com.example.simu.olms.storage.SharedPrefManager;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -77,7 +77,6 @@ public class StudentLogin extends AppCompatActivity implements View.OnClickListe
 
     private void stuLogin() {
         String stu_id = editText_id.getText().toString().trim();
-        Log.d("AAA",""+stu_id);
         String password = editText_password.getText().toString().trim();
 
         if (stu_id.isEmpty()) {
@@ -93,11 +92,6 @@ public class StudentLogin extends AppCompatActivity implements View.OnClickListe
             return;
         }
 
-        if (password.length() < 6) {
-            editText_password.setError("Password should be atleast 6 character long");
-            editText_password.requestFocus();
-            return;
-        }
 
         /* Do user login using API call*/
         Call<StudentLoginResponse> call = RetrofitClient
@@ -117,25 +111,25 @@ public class StudentLogin extends AppCompatActivity implements View.OnClickListe
 
                     SharedPrefManager.getInstance(StudentLogin.this)
                             .saveUser(studentLoginResponse.getUser());
-                    if(flag.equals("ib")){
-                        String[] all_info_of_books =  {
-                                id,
-                                book_name,
-                                book_edition,
-                                author_name,
-                                avail_copies,
-                                shelf,
-                                pos,
-                                pdf,
-                        };
-
-                        openDetailsActivity(all_info_of_books);
-
-                    }else{
-                        Intent intent = new Intent(StudentLogin.this,StudentProfile.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//                    if(flag.equals("ib")){
+//                        String[] all_info_of_books =  {
+//                                id,
+//                                book_name,
+//                                book_edition,
+//                                author_name,
+//                                avail_copies,
+//                                shelf,
+//                                pos,
+//                                pdf,
+//                        };
+//
+//                        openDetailsActivity(all_info_of_books);
+//
+//                    }else{
+                        Intent intent = new Intent(StudentLogin.this,Dashboard.class);
+                        //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
-                    }
+//                    }
 
                 }else{
                     Toast.makeText(StudentLogin.this, studentLoginResponse.getMessage(), Toast.LENGTH_SHORT).show();

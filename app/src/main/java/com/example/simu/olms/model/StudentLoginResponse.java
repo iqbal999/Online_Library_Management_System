@@ -1,4 +1,4 @@
-package com.example.iqbal.olms.model;
+package com.example.simu.olms.model;
 
 public class StudentLoginResponse {
 
