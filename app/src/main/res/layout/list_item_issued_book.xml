@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_b_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:text="Book Title"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#fff"/>
+        <TextView
+            android:id="@+id/tv_b_edition"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:text="Book Edition"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:textColor="#fff"/>
+
+        <TextView
+            android:id="@+id/tv_a_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:text="Author Name"
+            android:textSize="12sp"
+            android:textColor="#fff"/>
+
+        <TextView
+            android:id="@+id/tv_issue_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:text="Issue Date"
+            android:textSize="12sp"
+            android:textColor="#fff"/>
+
+        <Button
+            android:id="@+id/button_return_book"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Return Book"/>
+
+
+    </LinearLayout>
+
+</RelativeLayout>

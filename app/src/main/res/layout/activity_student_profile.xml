@@ -4,9 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#e5451b09"
+    android:background="#07514c"
     tools:context="com.example.simu.olms.activities.StudentProfile">
-
 
     <LinearLayout
         android:id="@+id/lin_layout"

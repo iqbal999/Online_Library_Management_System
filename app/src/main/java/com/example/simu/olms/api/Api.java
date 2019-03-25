@@ -2,6 +2,8 @@ package com.example.simu.olms.api;
 
 import com.example.simu.olms.model.DefaultResponse;
 import com.example.simu.olms.model.SearchBooksResponse;
+import com.example.simu.olms.model.ShowAllIssuedBookResponse;
+import com.example.simu.olms.model.ShowIssueBooksResponse;
 import com.example.simu.olms.model.StudentLoginResponse;
 
 import java.util.List;
@@ -17,8 +19,6 @@ import retrofit2.http.Streaming;
 import retrofit2.http.Url;
 
 public interface Api {
-
-
 
     @FormUrlEncoded
     @POST("api/studentSignup.php")
@@ -46,6 +46,24 @@ public interface Api {
     Call<DefaultResponse> issueBook(
             @Field("stu_id") String stu_id,
             @Field("book_id") int book_id
+    );
+
+    @FormUrlEncoded
+    @POST("api/showIssuedBooks.php")
+    Call<List<ShowIssueBooksResponse>> showIssuedBooks(
+            @Field("stu_id") String stu_id
+    );
+
+    @FormUrlEncoded
+    @POST("api/returnBook.php")
+    Call<DefaultResponse> returnBooks(
+            @Field("sr_no") int sr_no
+    );
+
+    @FormUrlEncoded
+    @POST("api/showAllIssuedBooksOfUser.php")
+    Call<List<ShowAllIssuedBookResponse>> showAllIssuedBooks(
+            @Field("stu_id") String stu_id
     );
 
 }

@@ -68,7 +68,7 @@ public class StudentLogin extends AppCompatActivity implements View.OnClickListe
         super.onStart();
 
         if(SharedPrefManager.getInstance(this).isLoggedIn()){
-            Intent intent = new Intent(this,StudentProfile.class);
+            Intent intent = new Intent(this,Dashboard.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
         }

@@ -10,7 +10,7 @@ import com.example.simu.olms.R;
 import com.example.simu.olms.storage.SharedPrefManager;
 
 public class Dashboard extends AppCompatActivity implements View.OnClickListener {
-    private CardView cv_profile, cv_logout, cv_issue_book;
+    private CardView cv_profile, cv_logout, cv_issue_book, cv_return_book, cv_history;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,10 +21,14 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
         cv_profile = findViewById(R.id.cardView_profile);
         cv_logout = findViewById(R.id.cardView_logout);
         cv_issue_book = findViewById(R.id.cardView_issue_book);
+        cv_return_book = findViewById(R.id.cardView_return_book);
+        cv_history = findViewById(R.id.cardView_history);
 
         cv_profile.setOnClickListener(this);
         cv_logout.setOnClickListener(this);
         cv_issue_book.setOnClickListener(this);
+        cv_return_book.setOnClickListener(this);
+        cv_history.setOnClickListener(this);
 
     }
 
@@ -39,6 +43,12 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
                 break;
             case R.id.cardView_issue_book:
                 startActivity(new Intent(this, SearchBook.class));
+                break;
+            case R.id.cardView_return_book:
+                startActivity(new Intent(this, ShowIssuedBooks.class));
+                break;
+            case R.id.cardView_history:
+                startActivity(new Intent(this, ShowAllIssuedBooksOfUser.class));
                 break;
         }
     }

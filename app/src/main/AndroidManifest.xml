@@ -25,7 +25,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.BookDetails" />
-        <activity android:name=".activities.Dashboard"></activity>
+        <activity android:name=".activities.Dashboard" />
+        <activity android:name=".activities.ShowIssuedBooks" />
+        <activity android:name=".activities.ShowAllIssuedBooksOfUser"></activity>
     </application>
 
 </manifest>

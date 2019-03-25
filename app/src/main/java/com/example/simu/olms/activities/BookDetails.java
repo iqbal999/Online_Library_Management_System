@@ -2,6 +2,7 @@ package com.example.simu.olms.activities;
 
 import android.Manifest;
 import android.app.DownloadManager;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
@@ -10,6 +11,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -43,10 +45,11 @@ public class BookDetails extends AppCompatActivity {
     private static final int PERMISSION_REQUEST_CODE = 1;
     private final String CHANNEL_ID = "personal_notfications";
     private final int NOTIFICATION_ID = 001;
+    AlertDialog.Builder builder;
 
     TextView tv_book_name, tv_author_name, tv_book_edition, tv_avail_copies, tv_shelf, tv_position;
     Button pdf_download, issue_book;
-    String base_url = "http://192.168.1.2/library/upload/";
+    String base_url = "http://192.168.0.105/library/upload/";
     StudentInfo stu_info;
     String id, book_name, book_edition, author_name, avail_copies, shelf, pos, pdf, full_url;
 
@@ -83,7 +86,6 @@ public class BookDetails extends AppCompatActivity {
         if(pdf.equals("")){
             pdf_download.setEnabled(false);
         }
-
         // Show data to text view
 
         tv_book_name.setText("Book Name: "+book_name);
@@ -93,12 +95,6 @@ public class BookDetails extends AppCompatActivity {
         tv_avail_copies.setText("Available copies: "+avail_copies);
         tv_shelf.setText("Shelf No: "+shelf);
         tv_position.setText("Book Positon: "+pos);
-        //tv_pdf.setText("PDF: "+pdf);
-
-
-
-        full_url = base_url + pdf;
-        //Log.d("AAA",""+full_url);
 
         pdf_download.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,42 +111,26 @@ public class BookDetails extends AppCompatActivity {
         issue_book.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("AAA",""+stu_info.getId()+ "\t"+Integer.parseInt(id));
-                if(SharedPrefManager.getInstance(getApplicationContext()).isLoggedIn()){
-                    Call<DefaultResponse> call = RetrofitClient
-                            .getInstance()
-                            .getApi()
-                            .issueBook(stu_info.getId(), Integer.parseInt(id));
+                builder = new AlertDialog.Builder(BookDetails.this);
+                builder.setMessage("Do you want to issue this book?")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                issueBook();
+                            }
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                // User cancelled the dialog
+                            }
+                        });
 
-                    call.enqueue(new Callback<DefaultResponse>() {
-                        @Override
-                        public void onResponse(Call<DefaultResponse> call, Response<DefaultResponse> response) {
-                            DefaultResponse dr = response.body();
-                            //Log.d("AAA",""+response);
-                            //Log.d("AAB",""+response.body());
-                            Toast.makeText(BookDetails.this, dr.getMsg(), Toast.LENGTH_SHORT).show();
-                        }
+                // Create the AlertDialog object and return it
 
-                        @Override
-                        public void onFailure(Call<DefaultResponse> call, Throwable t) {
-                            Toast.makeText(BookDetails.this, t.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                }else{
-                    String[] all_info_of_books =  {
-                            id,
-                            book_name,
-                            book_edition,
-                            author_name,
-                            avail_copies,
-                            shelf,
-                            pos,
-                            pdf,
-                            "ib"
-                            };
+                AlertDialog ad = builder.create();
+                ad.show();
 
-                    openDetailsActivity(all_info_of_books);
-                }
+
+
 
             }
         });
@@ -171,6 +151,42 @@ public class BookDetails extends AppCompatActivity {
         intent.putExtra("flag", data[8]);
 
         startActivity(intent);
+    }
+    private void issueBook(){
+        if(SharedPrefManager.getInstance(getApplicationContext()).isLoggedIn()){
+            Call<DefaultResponse> call = RetrofitClient
+                    .getInstance()
+                    .getApi()
+                    .issueBook(stu_info.getId(), Integer.parseInt(id));
+
+            call.enqueue(new Callback<DefaultResponse>() {
+                @Override
+                public void onResponse(Call<DefaultResponse> call, Response<DefaultResponse> response) {
+                    DefaultResponse dr = response.body();
+                    Toast.makeText(BookDetails.this, dr.getMsg(), Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onFailure(Call<DefaultResponse> call, Throwable t) {
+                    Toast.makeText(BookDetails.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+        }else{
+            String[] all_info_of_books =  {
+                    id,
+                    book_name,
+                    book_edition,
+                    author_name,
+                    avail_copies,
+                    shelf,
+                    pos,
+                    pdf,
+                    "ib"
+            };
+
+            openDetailsActivity(all_info_of_books);
+        }
+
     }
 
     private boolean checkPermission(){
@@ -224,7 +240,6 @@ public class BookDetails extends AppCompatActivity {
             @Override
             public void onResponse(Call<ResponseBody> call, final Response<ResponseBody> response) {
                 if (response.isSuccessful()) {
-                    //Log.d(TAG, "server contacted and has file");
                     new AsyncTask<Void, Void, Void>() {
                         @Override
                         protected Void doInBackground(Void... voids) {
