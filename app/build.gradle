@@ -44,8 +44,6 @@ dependencies {
     // retrofit library
     implementation 'com.squareup.retrofit2:retrofit:2.5.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
-    implementation 'com.amitshekhar.android:android-networking:1.0.2'
-    implementation 'org.apache.directory.studio:org.apache.commons.io:2.4'
     implementation group: 'commons-io', name: 'commons-io', version: '2.6'
     implementation 'com.google.code.gson:gson:2.8.5'
 

@@ -10,19 +10,18 @@ import android.widget.Toast;
 import com.example.simu.olms.R;
 import com.example.simu.olms.api.RetrofitClient;
 import com.example.simu.olms.model.DefaultResponse;
-import com.example.simu.olms.storage.SharedPrefManager;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class StudentSignup extends AppCompatActivity implements View.OnClickListener {
+public class FacultySignUp extends AppCompatActivity implements View.OnClickListener{
     EditText editText_id, editText_dob, editText_password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_student_signup);
+        setContentView(R.layout.activity_faculty_sign_up);
 
         editText_id = findViewById(R.id.edit_text_id);
         editText_dob = findViewById(R.id.edit_text_dob);
@@ -33,33 +32,22 @@ public class StudentSignup extends AppCompatActivity implements View.OnClickList
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-
-        if(SharedPrefManager.getInstance(this).isLoggedIn()){
-            Intent intent = new Intent(this,StudentProfile.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
-        }
-
-    }
-    @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.button_signup:
-                userSignUp();
+                facultySignUp();
                 break;
             case R.id.textViewLogin:
                 startActivity(new Intent(this,Login.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
         }
     }
 
-    private void userSignUp() {
-        String stu_id = editText_id.getText().toString().trim();
+    private void facultySignUp() {
+        String fac_id = editText_id.getText().toString().trim();
         String dob = editText_dob.getText().toString().trim();
         String password = editText_password.getText().toString().trim();
 
-        if (stu_id.isEmpty()) {
+        if (fac_id.isEmpty()) {
             editText_id.setError("Id is required");
             editText_id.requestFocus();
             return;
@@ -87,18 +75,18 @@ public class StudentSignup extends AppCompatActivity implements View.OnClickList
         Call<DefaultResponse> call = RetrofitClient
                 .getInstance()
                 .getApi()
-                .createUser(stu_id, dob, password);
+                .facultySignUp(fac_id, dob, password);
         call.enqueue(new Callback<DefaultResponse>() {
             @Override
             public void onResponse(Call<DefaultResponse> call, Response<DefaultResponse> response) {
                 //String s = null;
                 DefaultResponse dr = response.body();
-                Toast.makeText(StudentSignup.this, dr.getMsg(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(FacultySignUp.this, dr.getMsg(), Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onFailure(Call<DefaultResponse> call, Throwable t) {
-                Toast.makeText(StudentSignup.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(FacultySignUp.this, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }

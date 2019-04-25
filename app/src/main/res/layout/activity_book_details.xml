@@ -71,19 +71,19 @@
 
         <Button
             android:id="@+id/pdf_download"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Download PDF"
-            android:layout_gravity="center"/>
+            android:layout_gravity="center"
+            android:text="Download PDF" />
 
 
         <Button
-            android:layout_marginTop="20dp"
             android:id="@+id/issue_book"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Issue Book"
-            android:layout_gravity="center"/>
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:text="Send Request For Issue" />
 
 
     </LinearLayout>

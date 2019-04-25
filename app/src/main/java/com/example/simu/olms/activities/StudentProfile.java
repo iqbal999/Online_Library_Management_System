@@ -1,8 +1,10 @@
 package com.example.simu.olms.activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -15,11 +17,16 @@ public class StudentProfile extends AppCompatActivity implements View.OnClickLis
 
     TextView tv_name, tv_dob, tv_phone, tv_email;
     Button btn_logout;
+    SharedPreferences prefs;
+    String userType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_profile);
+
+        prefs = getSharedPreferences(SharedPrefManager.SHARED_PREF_NAME, MODE_PRIVATE);
+        userType = prefs.getString("user",null);
 
         tv_name = findViewById(R.id.tv_name);
         tv_dob = findViewById(R.id.tv_dob);
@@ -59,6 +66,6 @@ public class StudentProfile extends AppCompatActivity implements View.OnClickLis
 
     private void logout() {
         SharedPrefManager.getInstance(getApplicationContext()).clear();
-        startActivity(new Intent(StudentProfile.this,StudentLogin.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
+        startActivity(new Intent(StudentProfile.this,Login.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
     }
 }

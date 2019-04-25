@@ -7,7 +7,7 @@ import com.example.simu.olms.model.StudentInfo;
 
 public class SharedPrefManager {
 
-     private static final String SHARED_PREF_NAME = "my_shared_preff";
+     public static final String SHARED_PREF_NAME = "my_shared_preff";
 
      private static SharedPrefManager mInstance;
      private Context context;
@@ -33,6 +33,14 @@ public class SharedPrefManager {
         editor.putString("phn",stuInfo.getPhone());
         editor.putString("email",stuInfo.getEmail());
 
+        editor.apply();
+    }
+
+    public void userType(String userType){
+        SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_PREF_NAME,Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        editor.putString("user",userType);
         editor.apply();
     }
 

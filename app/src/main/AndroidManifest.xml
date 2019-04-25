@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".activities.StudentSignup" />
-        <activity android:name=".activities.StudentLogin" />
+        <activity android:name=".activities.Login" />
         <activity android:name=".activities.StudentProfile" />
         <activity android:name=".activities.SearchBook" />
         <activity android:name=".activities.MainActivity">
@@ -27,7 +27,10 @@
         <activity android:name=".activities.BookDetails" />
         <activity android:name=".activities.Dashboard" />
         <activity android:name=".activities.ShowIssuedBooks" />
-        <activity android:name=".activities.ShowAllIssuedBooksOfUser"></activity>
+        <activity android:name=".activities.ShowAllIssuedBooksOfUser" />
+        <activity android:name=".activities.FacultySignUp" />
+        <activity android:name=".activities.Request" />
+        <activity android:name=".activities.AllReturnRequest"></activity>
     </application>
 
 </manifest>

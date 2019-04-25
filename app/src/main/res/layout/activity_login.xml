@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.simu.olms.activities.StudentLogin"
-    android:background="#07514c">
+    android:background="#07514c"
+    tools:context="com.example.simu.olms.activities.Login">
 
 
     <TextView
@@ -15,8 +15,8 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="10dp"
         android:text="Login"
-        android:textColor="#fff"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline" />
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline"
+        android:textColor="#fff" />
 
     <LinearLayout
         android:id="@+id/layout_input"
@@ -34,30 +34,43 @@
             android:id="@+id/edit_text_id"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Enter id"
-            android:inputType="textCapCharacters"
             android:drawableLeft="@drawable/ic_id"
-            android:drawablePadding="5dp"/>
+            android:drawablePadding="5dp"
+            android:hint="Enter id"
+            android:inputType="textCapCharacters" />
 
 
         <EditText
             android:id="@+id/edit_text_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Enter password"
-            android:inputType="textPassword"
             android:drawableLeft="@drawable/ic_password"
-            android:drawablePadding="5dp"/>
+            android:drawablePadding="5dp"
+            android:hint="Enter password"
+            android:inputType="textPassword" />
+
+        <Spinner
+            android:id="@+id/select_login_type"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/layout_input"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp">
+
+        </Spinner>
 
     </LinearLayout>
 
+
+
     <Button
-        android:layout_marginTop="20dp"
         android:id="@+id/button_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/layout_input"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
         android:text="Login" />
 
     <TextView

@@ -10,7 +10,8 @@ import com.example.simu.olms.R;
 import com.example.simu.olms.storage.SharedPrefManager;
 
 public class Dashboard extends AppCompatActivity implements View.OnClickListener {
-    private CardView cv_profile, cv_logout, cv_issue_book, cv_return_book, cv_history;
+    private CardView cv_profile, cv_logout, cv_issue_book, cv_return_book, cv_history,
+                    cv_all_request, cv_all_return_request;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,12 +24,16 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
         cv_issue_book = findViewById(R.id.cardView_issue_book);
         cv_return_book = findViewById(R.id.cardView_return_book);
         cv_history = findViewById(R.id.cardView_history);
+        cv_all_request = findViewById(R.id.cardView_all_request);
+        cv_all_return_request = findViewById(R.id.cardView_return_request);
 
         cv_profile.setOnClickListener(this);
         cv_logout.setOnClickListener(this);
         cv_issue_book.setOnClickListener(this);
         cv_return_book.setOnClickListener(this);
         cv_history.setOnClickListener(this);
+        cv_all_request.setOnClickListener(this);
+        cv_all_return_request.setOnClickListener(this);
 
     }
 
@@ -50,11 +55,17 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
             case R.id.cardView_history:
                 startActivity(new Intent(this, ShowAllIssuedBooksOfUser.class));
                 break;
+            case R.id.cardView_all_request:
+                startActivity(new Intent(this, Request.class));
+                break;
+            case R.id.cardView_return_request:
+                startActivity(new Intent(this, AllReturnRequest.class));
+                break;
         }
     }
 
     private void logout() {
         SharedPrefManager.getInstance(getApplicationContext()).clear();
-        startActivity(new Intent(this,StudentLogin.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
+        startActivity(new Intent(this,Login.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
     }
 }

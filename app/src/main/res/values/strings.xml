@@ -1,7 +1,10 @@
 <resources>
     <string name="app_name">OLMS</string>
 
-    <string name="s">
-        Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh Hello Bangladesh
-    </string>
+
+    <string-array name="login_type">
+        <item>Select Login Type</item>
+        <item>Student</item>
+        <item>Faculty</item>
+    </string-array>
 </resources>

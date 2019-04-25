@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import android.widget.Toast;
 import com.example.simu.olms.R;
 import com.example.simu.olms.api.RetrofitClient;
 import com.example.simu.olms.model.SearchBooksResponse;
+import com.example.simu.olms.storage.SharedPrefManager;
 
 import java.util.List;
 
@@ -26,18 +28,26 @@ import retrofit2.Response;
 
 public class SearchBook extends AppCompatActivity implements View.OnClickListener{
 
+    Call<List<SearchBooksResponse>> call;
     ImageButton btn_search;
     EditText editTextSearch;
+    Intent i;
     TextView tv_book_name, tv_author_name, tv_aval_copies, tv_shelf_no, tv_book_position, tv_pdf;
+    private String search_type = "nothing";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_book);
 
+        i = getIntent();
+        search_type = i.getStringExtra("search_by");
+        if(search_type == null){
+            search_type = "title";
+        }
+
+        //Log.d("AAA",""+search_type);
         btn_search = findViewById(R.id.btn_search);
         editTextSearch = findViewById(R.id.edit_text_search);
-
-
 
         btn_search.setOnClickListener(this);
 
@@ -52,20 +62,35 @@ public class SearchBook extends AppCompatActivity implements View.OnClickListene
     }
 
     private void showBookList() {
-        String book_name = editTextSearch.getText().toString().trim();
+        String search_content = editTextSearch.getText().toString().trim();
 
-        if(book_name.isEmpty()){
-            editTextSearch.setError("Book name is required");
+
+        if(search_content.isEmpty()){
+
+                if(search_type.equals("title")){
+                    editTextSearch.setError("Book name is required");
+                }else if(search_type.equals("author")){
+                    editTextSearch.setError("Author name is required");
+                }
+
+
             editTextSearch.requestFocus();
             return;
         }
 
         /* Do api call for show book list */
 
-        Call<List<SearchBooksResponse>> call = RetrofitClient
+//        if(search_type.equals("title")){
+//            call = RetrofitClient
+//                    .getInstance()
+//                    .getApi()
+//                    .searchBookByName(search_content, search_type);
+//        }
+
+        call = RetrofitClient
                 .getInstance()
                 .getApi()
-                .searchBookByName(book_name);
+                .searchBookByName(search_content, search_type);
 
         call.enqueue(new Callback<List<SearchBooksResponse>>() {
             @Override

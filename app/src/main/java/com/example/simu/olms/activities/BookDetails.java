@@ -1,9 +1,9 @@
 package com.example.simu.olms.activities;
 
 import android.Manifest;
-import android.app.DownloadManager;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Environment;
@@ -46,18 +46,22 @@ public class BookDetails extends AppCompatActivity {
     private final String CHANNEL_ID = "personal_notfications";
     private final int NOTIFICATION_ID = 001;
     AlertDialog.Builder builder;
+    Call<DefaultResponse> call;
+    SharedPreferences prefs;
 
     TextView tv_book_name, tv_author_name, tv_book_edition, tv_avail_copies, tv_shelf, tv_position;
     Button pdf_download, issue_book;
-    String base_url = "http://192.168.0.105/library/upload/";
+    String base_url = "http://192.168.0.102/library/upload/";
     StudentInfo stu_info;
     String id, book_name, book_edition, author_name, avail_copies, shelf, pos, pdf, full_url;
-
+    String userType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_details);
+        prefs = getSharedPreferences(SharedPrefManager.SHARED_PREF_NAME, MODE_PRIVATE);
+        userType = prefs.getString("user",null);
 
         stu_info = SharedPrefManager.getInstance(this).getStudentInfo();
 
@@ -83,6 +87,7 @@ public class BookDetails extends AppCompatActivity {
         pos = i.getStringExtra("pos");
         pdf = i.getStringExtra("pdf");
 
+
         if(pdf.equals("")){
             pdf_download.setEnabled(false);
         }
@@ -100,7 +105,7 @@ public class BookDetails extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(checkPermission()){
-                    downloadFile(full_url);
+                    downloadFile(base_url+pdf);
                 } else {
                     requestPermission();
                 }
@@ -108,38 +113,67 @@ public class BookDetails extends AppCompatActivity {
             }
         });
 
+
         issue_book.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                builder = new AlertDialog.Builder(BookDetails.this);
-                builder.setMessage("Do you want to issue this book?")
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                issueBook();
-                            }
-                        })
-                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                // User cancelled the dialog
-                            }
-                        });
+                if (SharedPrefManager.getInstance(BookDetails.this).isLoggedIn()) {
+                    builder = new AlertDialog.Builder(BookDetails.this);
+                    builder.setMessage("Do you want to request for issue this book?")
+                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    //issueBook();
+                                    requestForIssueBook();
+                                }
+                            })
+                            .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    // User cancelled the dialog
+                                }
+                            });
 
-                // Create the AlertDialog object and return it
+                    // Create the AlertDialog object and return it
 
-                AlertDialog ad = builder.create();
-                ad.show();
-
-
-
+                    AlertDialog ad = builder.create();
+                    ad.show();
+                }else{
+                    Toast.makeText(BookDetails.this, "You have to login first", Toast.LENGTH_SHORT).show();
+                }
 
             }
         });
+    }
 
+    private void requestForIssueBook() {
+
+        if(SharedPrefManager.getInstance(getApplicationContext()).isLoggedIn()){
+            call = RetrofitClient
+                    .getInstance()
+                    .getApi()
+                    .requestForIssue(stu_info.getId(), Integer.parseInt(id), "Issue Book");
+
+            call.enqueue(new Callback<DefaultResponse>() {
+                @Override
+                public void onResponse(Call<DefaultResponse> call, Response<DefaultResponse> response) {
+                    DefaultResponse dr = response.body();
+                    Toast.makeText(BookDetails.this, dr.getMsg(), Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(BookDetails.this, Request.class));
+                }
+
+                @Override
+                public void onFailure(Call<DefaultResponse> call, Throwable t) {
+                    Toast.makeText(BookDetails.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+        }else{
+            Toast.makeText(this, "You have to login for request", Toast.LENGTH_SHORT).show();
+        }
 
 
     }
+
     private void openDetailsActivity(String[] data) {
-        Intent intent = new Intent(this, StudentLogin.class);
+        Intent intent = new Intent(this, Login.class);
         intent.putExtra("id", data[0]);
         intent.putExtra("book", data[1]);
         intent.putExtra("edition", data[2]);
@@ -152,52 +186,14 @@ public class BookDetails extends AppCompatActivity {
 
         startActivity(intent);
     }
-    private void issueBook(){
-        if(SharedPrefManager.getInstance(getApplicationContext()).isLoggedIn()){
-            Call<DefaultResponse> call = RetrofitClient
-                    .getInstance()
-                    .getApi()
-                    .issueBook(stu_info.getId(), Integer.parseInt(id));
 
-            call.enqueue(new Callback<DefaultResponse>() {
-                @Override
-                public void onResponse(Call<DefaultResponse> call, Response<DefaultResponse> response) {
-                    DefaultResponse dr = response.body();
-                    Toast.makeText(BookDetails.this, dr.getMsg(), Toast.LENGTH_SHORT).show();
-                }
-
-                @Override
-                public void onFailure(Call<DefaultResponse> call, Throwable t) {
-                    Toast.makeText(BookDetails.this, t.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            });
-        }else{
-            String[] all_info_of_books =  {
-                    id,
-                    book_name,
-                    book_edition,
-                    author_name,
-                    avail_copies,
-                    shelf,
-                    pos,
-                    pdf,
-                    "ib"
-            };
-
-            openDetailsActivity(all_info_of_books);
-        }
-
-    }
 
     private boolean checkPermission(){
         int result = ContextCompat.checkSelfPermission(this,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE);
         if (result == PackageManager.PERMISSION_GRANTED){
-
             return true;
-
         } else {
-
             return false;
         }
     }
@@ -314,5 +310,3 @@ public class BookDetails extends AppCompatActivity {
         }
     }
 }
-
-

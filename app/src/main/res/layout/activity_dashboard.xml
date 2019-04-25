@@ -286,7 +286,7 @@
                 <!-- Row 1 -->
                 <!-- Column 1 -->
                 <android.support.v7.widget.CardView
-                    android:id="@+id/cardView_search_book_by_title"
+                    android:id="@+id/cardView_all_request"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_columnWeight="1"
@@ -314,7 +314,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:text="Notification"
+                            android:text="Issue Request"
                             android:textAlignment="center"
                             android:textColor="#000"
                             android:textSize="18sp" />
@@ -326,7 +326,7 @@
 
                 <!-- Column 2 -->
                 <android.support.v7.widget.CardView
-                    android:id="@+id/cardView_search_book_by_author"
+                    android:id="@+id/cardView_return_request"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_columnWeight="1"
@@ -353,7 +353,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:text="Notification"
+                            android:text="Return Request"
                             android:textAlignment="center"
                             android:textColor="#000"
                             android:textSize="18sp" />
