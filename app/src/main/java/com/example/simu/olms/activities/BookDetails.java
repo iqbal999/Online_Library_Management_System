@@ -51,7 +51,7 @@ public class BookDetails extends AppCompatActivity {
 
     TextView tv_book_name, tv_author_name, tv_book_edition, tv_avail_copies, tv_shelf, tv_position;
     Button pdf_download, issue_book;
-    String base_url = "http://192.168.0.102/library/upload/";
+    String base_url = "http://library.rajwebhost.com/upload/";
     StudentInfo stu_info;
     String id, book_name, book_edition, author_name, avail_copies, shelf, pos, pdf, full_url;
     String userType;

@@ -1,6 +1,7 @@
 package com.example.simu.olms.activities;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -31,12 +32,16 @@ public class ShowAllIssuedBooksOfUser extends AppCompatActivity {
     private AlertDialog.Builder builder;
     private StudentInfo studentInfo;
     private ShowAllIssuedBookResponse allIssuedBook;
+    SharedPreferences prefs;
+    String userType;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_all_issued_books_of_user);
 
         studentInfo = SharedPrefManager.getInstance(this).getStudentInfo();
+        prefs = getSharedPreferences(SharedPrefManager.SHARED_PREF_NAME, MODE_PRIVATE);
+        userType = prefs.getString("user",null);
 
         showAllIssuedBooks();
     }
@@ -45,7 +50,7 @@ public class ShowAllIssuedBooksOfUser extends AppCompatActivity {
         Call<List<ShowAllIssuedBookResponse>> call = RetrofitClient
                 .getInstance()
                 .getApi()
-                .showAllIssuedBooks(studentInfo.getId());
+                .showAllIssuedBooks(studentInfo.getId(), userType);
 
         call.enqueue(new Callback<List<ShowAllIssuedBookResponse>>() {
             @Override

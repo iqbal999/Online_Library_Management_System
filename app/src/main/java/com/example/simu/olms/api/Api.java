@@ -103,7 +103,9 @@ public interface Api {
     @FormUrlEncoded
     @POST("api/general/showAllIssuedBooksOfUser.php")
     Call<List<ShowAllIssuedBookResponse>> showAllIssuedBooks(
-            @Field("stu_id") String stu_id
+            @Field("stu_id") String stu_id,
+            @Field("user_type") String usertype
+
     );
 
     @FormUrlEncoded
@@ -151,9 +153,14 @@ public interface Api {
     @POST("api/general/deleteReturnRequest.php")
     Call<DefaultResponse> delReturnRequest(
             @Field("req_id") String req_id
-
     );
 
+    @FormUrlEncoded
+    @POST("api/general/saveToken.php")
+    Call<DefaultResponse> saveToken(
+            @Field("stu_id") String stu_id,
+            @Field("token") String token
+    );
 
 
 }

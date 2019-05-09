@@ -1,14 +1,21 @@
 package com.example.simu.olms.activities;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Intent;
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.view.View;
 
 import com.example.simu.olms.R;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+    public static final String CHANNEL_ID = "olms";
+    public static final String CHANNEL_NAME = "olms";
+    public static final String CHANNEL_DESC = "online library";
 
     CardView cardView_login, cardView_signup, cardView_searchBookByTitle, cardView_faculty_signup,
             cardView_search_book_by_author;
@@ -16,6 +23,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID,
+                    CHANNEL_NAME, NotificationManager.IMPORTANCE_DEFAULT);
+            channel.setDescription(CHANNEL_DESC);
+            NotificationManager manager = getSystemService(NotificationManager.class);
+            manager.createNotificationChannel(channel);
+        }
+
+        FirebaseMessaging.getInstance().subscribeToTopic("test");
 
         cardView_login= findViewById(R.id.cardView_login);
         cardView_signup= findViewById(R.id.cardView_signup);
